@@ -15,13 +15,16 @@ class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers.get('Content-Length'))
         body = self.rfile.read(content_length).decode('utf-8')
+
         message = json.loads(body)
+        content = message['content']
 
         analyzer = SentimentIntensityAnalyzer()
-        vs = analyzer.polarity_scores(message['content'])
+        scores = analyzer.polarity_scores(content)
+        response = json.dumps(scores)
 
         self._set_headers(200)
-        self.wfile.write(bytes(json.dumps(vs), "utf-8"))
+        self.wfile.write(bytes(response, "utf-8"))
 
 class Server():
     def __init__(self, handler):
