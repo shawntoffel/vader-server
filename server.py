@@ -1,7 +1,6 @@
 import json
 import os
 import signal
-import sys
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
