@@ -16,10 +16,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         body = self.rfile.read(content_length).decode('utf-8')
 
         message = json.loads(body)
-        content = message['content']
+        text = message['text']
 
         analyzer = SentimentIntensityAnalyzer()
-        scores = analyzer.polarity_scores(content)
+        scores = analyzer.polarity_scores(text)
         response = json.dumps(scores)
 
         self._set_headers(200)
